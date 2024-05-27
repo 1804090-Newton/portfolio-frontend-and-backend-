@@ -6,6 +6,7 @@ const errorHandler = require('./handler/errorHandler');
 const experienceRoutes = require('./routes/experienceRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const aboutRoutes = require('./routes/aboutRoutes');
 
 const app = new Koa();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ app.use(bodyParser());
 app.use(experienceRoutes);
 app.use(projectRoutes);
 app.use(contactRoutes);
+app.use(aboutRoutes);
 
 
 app.listen(PORT, () => {

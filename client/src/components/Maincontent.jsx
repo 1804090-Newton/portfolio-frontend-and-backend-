@@ -4,6 +4,9 @@ import { Typography, Button } from '@mui/material';
 
 const Bread = () => {
   
+  const toggleAbout = () => {
+    
+  };
 
   return (
     <div className="bread">
