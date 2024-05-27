@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Card, CardContent, Typography, Link, IconButton } from '@mui/material';
+import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import { GitHub, Link as LinkIcon } from '@mui/icons-material';
+import { getAllProjects } from '../../services/projectService';
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     animation: '$fadeIn 0.5s ease forwards',
     transition: 'transform 0.3s ease',
+    backgroundColor: '#87CEEB', 
   },
   cardContent: {
     transition: 'transform 0.3s ease',
@@ -42,34 +44,23 @@ const useStyles = makeStyles({
   },
 });
 
-const projects = [
-  {
-    projectId: '1',
-    userId: '1',
-    projectName: 'Project A',
-    description: 'Description of Project A',
-    startDate: '2022-01-01',
-    status: 'Completed',
-    githubLink: 'https://github.com/example/project-a',
-    demoLink: 'https://example.com/demo-a',
-    backgroundColor: '#FFB6C1',
-  },
-  {
-    projectId: '2',
-    userId: '1',
-    projectName: 'Project B',
-    description: 'Description of Project B',
-    startDate: '2022-02-01',
-    status: 'Ongoing',
-    githubLink: 'https://github.com/example/project-b',
-    demoLink: 'https://example.com/demo-b',
-    backgroundColor: '#87CEEB',
-  },
-  // Add more projects as needed
-];
-
 const ProjectSection = () => {
   const classes = useStyles();
+
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await getAllProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -77,7 +68,7 @@ const ProjectSection = () => {
         <Card
           key={project.projectId}
           className={classes.card}
-          style={{ backgroundColor: project.backgroundColor }}
+          style={{ backgroundColor: project.backgroundColor }} 
         >
           <CardContent className={classes.cardContent}>
             <Typography className={classes.title} gutterBottom>

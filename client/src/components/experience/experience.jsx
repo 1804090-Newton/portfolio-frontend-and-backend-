@@ -1,30 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Card, CardContent, styled } from '@mui/material';
-
-const experiences = [
-  {
-    companyName: 'Company A',
-    role: 'Software Engineer',
-    startDate: '2020-01-01',
-    endDate: '2021-01-01',
-    description: 'Worked on various web development projects.',
-    achievements: [
-      'Led a project to improve performance by 20%',
-      'Mentored junior developers',
-    ],
-  },
-  {
-    companyName: 'Company B',
-    role: 'Senior Developer',
-    startDate: '2021-02-01',
-    endDate: 'Present',
-    description: 'Leading a team of developers.',
-    achievements: [
-      'Implemented CI/CD pipeline',
-      'Increased code coverage by 30%',
-    ],
-  },
-];
+import { getAllExperiences } from '../../services/experienceService';
 
 const GradientCard = styled(Card)(({ theme }) => ({
   background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
@@ -36,6 +12,21 @@ const GradientCard = styled(Card)(({ theme }) => ({
 }));
 
 const ExperienceSection = () => {
+  const [experiences, setExperiences] = useState([]);
+
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const data = await getAllExperiences();
+        setExperiences(data);
+      } catch (error) {
+        console.error('Failed to fetch experiences', error);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
   return (
     <Container id="experience" maxWidth="md">
       <Typography variant="h2" gutterBottom align="center">
@@ -50,10 +41,7 @@ const ExperienceSection = () => {
                   {experience.role} at {experience.companyName}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
-                  {experience.startDate} -{' '}
-                  {experience.endDate === 'Present'
-                    ? 'Present'
-                    : experience.endDate}
+                  {experience.startDate} - {experience.endDate === 'Present' ? 'Present' : experience.endDate}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                   {experience.description}
@@ -62,9 +50,7 @@ const ExperienceSection = () => {
                   Achievements:
                 </Typography>
                 <ul>
-                  {experience.achievements.map((achievement, idx) => (
-                    <li key={idx}>{achievement}</li>
-                  ))}
+                {experience.achievements}
                 </ul>
               </CardContent>
             </GradientCard>
