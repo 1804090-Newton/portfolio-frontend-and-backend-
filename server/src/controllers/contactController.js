@@ -1,5 +1,5 @@
 
-const { createContact } = require('../models/contact');
+const { createContact } = require('../models/contactModel');
 
 async function handleCreateContact(ctx) {
   try {

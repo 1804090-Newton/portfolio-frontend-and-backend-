@@ -9,7 +9,7 @@ const contactRoutes = require('./routes/contactRoutes');
 const aboutRoutes = require('./routes/aboutRoutes');
 
 const app = new Koa();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(errorHandler); 
