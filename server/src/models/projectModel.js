@@ -1,6 +1,6 @@
 const ddbDocClient = require('../config/aws');
 const { PutCommand, ScanCommand, GetCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
-const { marshall } = require('@aws-sdk/util-dynamodb');
+
 
 const tableName = 'Project';
 
@@ -31,28 +31,34 @@ async function getAllProjects() {
     });
 }
 
-async function getProjectById(projectId) {
+async function getProjectById(userId, projectId) {
   const params = {
     TableName: tableName,
-    Key: marshall({
+    Key: {
+      userId,
       projectId,
-    }),
+    },
   };
+     
   return ddbDocClient.send(new GetCommand(params))
     .then(data => {
-      return data;
+       console.log(data.Item);
+        return data;
+      
     })
     .catch(error => {
       throw error;
     });
 }
 
-async function deleteProject(projectId) {
+async function deleteProject(userId,projectId) {
+
   const params = {
     TableName: tableName,
-    Key: marshall({
+    Key:{
+      userId,
       projectId,
-    }),
+    },
   };
   return ddbDocClient.send(new DeleteCommand(params))
     .then(data => {

@@ -21,9 +21,10 @@ async function handleGetAllProjects(ctx) {
 }
 
 async function handleGetProjectById(ctx) {
-  const { projectId } = ctx.params;
+  const { userId,projectId } = ctx.params;
+ console.log(ctx.params);
   try {
-    const data = await getProjectById(projectId);
+    const data = await getProjectById(userId,projectId);
     if (!data.Item) {
       ctx.response.notFound('Project not found');
     } else {
@@ -35,9 +36,9 @@ async function handleGetProjectById(ctx) {
 }
 
 async function handleDeleteProject(ctx) {
-  const { projectId } = ctx.params;
+  const { userId,projectId } = ctx.params;
   try {
-    await deleteProject(projectId);
+    await deleteProject(userId,projectId);
     ctx.response.ok('Project deleted successfully');
   } catch (error) {
     ctx.response.internalError(error.message);
