@@ -1,5 +1,5 @@
 const ddbDocClient = require('../config/aws');
-const { PutCommand, ScanCommand, GetCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
+const { PutItemCommand, ScanCommand, GetItemCommand, DeleteItemCommand } = require('@aws-sdk/client-dynamodb');
 const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb');
 
 const tableName = 'Experience';
@@ -7,9 +7,9 @@ const tableName = 'Experience';
 async function createExperience(experience) {
   const params = {
     TableName: tableName,
-    Item: experience,
+    Item:marshall(experience),
   };
-  return ddbDocClient.send(new PutCommand(params))
+  return ddbDocClient.send(new PutItemCommand(params))
     .then(data => {
       return data;
     })
@@ -24,7 +24,7 @@ async function getAllExperiences() {
   };
   return ddbDocClient.send(new ScanCommand(params))
     .then(data => {
-      return data;
+        return { Items: data.Items.map(item => unmarshall(item)) };
     })
     .catch(error => {
       throw error;
@@ -40,9 +40,8 @@ async function getExperienceById(userId, experienceId) {
     }),
   };
 
-  console.log(`Fetching from DynamoDB with params: ${JSON.stringify(params)}`);
 
-  return ddbDocClient.send(new GetCommand(params))
+  return ddbDocClient.send(new GetItemCommand(params))
     .then(data => {
       if (data.Item) {
         return { Item: unmarshall(data.Item) };
@@ -64,9 +63,9 @@ async function deleteExperience(userId, experienceId) {
     }),
   };
 
-  console.log(`Deleting from DynamoDB with params: ${JSON.stringify(params)}`);
+ 
 
-  return ddbDocClient.send(new DeleteCommand(params))
+  return ddbDocClient.send(new DeleteItemCommand(params))
     .then(data => {
       return data;
     })
