@@ -1,5 +1,5 @@
 
-const { createProject, getAllProjects, getProjectById, deleteProject } = require('../models/projectModel');
+const { createProject, getAllProjects, getProjectById, deleteProject } = require('../models/ProjectModel');
 
 async function handleCreateProject(ctx) {
   const project = ctx.request.body;

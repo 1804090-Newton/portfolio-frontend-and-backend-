@@ -1,4 +1,4 @@
-const { getAbout } = require('../models/aboutModel');
+const { getAbout } = require('../models/AboutModel');
 
 async function handleGetAbout(ctx) {
     try {

@@ -1,4 +1,4 @@
-const { createExperience, getAllExperiences, getExperienceById, deleteExperience } = require('../models/experienceModel');
+const { createExperience, getAllExperiences, getExperienceById, deleteExperience } = require('../models/ExperienceModel');
 
 async function handleCreateExperience(ctx) {
   try {
