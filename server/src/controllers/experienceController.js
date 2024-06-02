@@ -1,4 +1,4 @@
-const { createExperience, getAllExperiences, getExperienceById, deleteExperience } = require('../models/ExperienceModel');
+const { createExperience, getAllExperiences, getExperienceById, deleteExperience , updateExperience } = require('../models/ExperienceModel');
 
 async function handleCreateExperience(ctx) {
   try {
@@ -43,10 +43,21 @@ async function handleDeleteExperience(ctx) {
     ctx.response.internalError(error.message);
   }
 }
+async function handleUpdateExperience(ctx) {
+  try {
+    const { userId, experienceId } = ctx.params;
+    const experience = ctx.request.body;
+    await updateExperience(userId, experienceId, experience);
+    ctx.response.ok('Experience updated successfully');
+  } catch (error) {
+    ctx.response.internalError(error.message);
+  }
+}
 
 module.exports = {
   handleCreateExperience,
   handleGetAllExperiences,
   handleGetExperienceById,
   handleDeleteExperience,
+  handleUpdateExperience
 };

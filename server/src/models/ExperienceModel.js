@@ -1,5 +1,5 @@
 const ddbDocClient = require('../config/aws');
-const { PutItemCommand, ScanCommand, GetItemCommand, DeleteItemCommand } = require('@aws-sdk/client-dynamodb');
+const { PutItemCommand, ScanCommand, GetItemCommand, DeleteItemCommand ,UpdateItemCommand } = require('@aws-sdk/client-dynamodb');
 const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb');
 
 const tableName = 'Experience';
@@ -74,10 +74,44 @@ async function deleteExperience(userId, experienceId) {
       throw error;
     });
 }
+async function updateExperience(userId, experienceId, experience) {
+  const params = {
+    TableName: tableName,
+    Key: marshall({
+      userId: userId,  
+      experienceId: experienceId,  
+    }),
+    UpdateExpression: 'set #role = :role , companyName = :companyName , startDate = :startDate , endDate = :endDate , description = :description , achievements = :achievements',
+    ExpressionAttributeNames: {
+      '#role': 'role',
+    },
+    ExpressionAttributeValues: marshall({
+      ':role': experience.role,
+      ':companyName': experience.companyName,
+      ':startDate': experience.startDate,
+      ':endDate': experience.endDate,
+      ':description': experience.description,
+      ':achievements': experience.achievements,
+    }),
+    ReturnValues: 'ALL_NEW',
+  };
+  
+  console.log(experience);
+  return ddbDocClient.send(new UpdateItemCommand(params))
+    .then(data => {
+      return { Item: unmarshall(data.Attributes)}
+    })
+    .catch(error => {
+      console.error('Error updating in DynamoDB', error);
+      throw error;
+    });
+}
+
 
 module.exports = {
   createExperience,
   getAllExperiences,
   getExperienceById,
   deleteExperience,
+  updateExperience,
 };
