@@ -5,8 +5,9 @@ const useStyles = makeStyles((theme) => ({
   aboutPage: {
     padding: theme.spacing(8, 2),
     backgroundColor: '#f0f4f8',
-    minHeight: '100vh',
+    minHeight: '100vh',  
   },
+  
   title: {
     marginBottom: theme.spacing(4),
     color: '#2c3e50',
