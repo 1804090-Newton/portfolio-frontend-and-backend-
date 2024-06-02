@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Maincontent from './components/Maincontent';
-import About from './components/About';
+import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import Experience from './components/experience/experience';
 import Project from './components/project/Project';
@@ -23,6 +23,7 @@ function App() {
         
           <Routes>
             <Route path='/Portfolio/' index element={<Maincontent />} />
+            <Route path="/" element={<Maincontent />} />
             <Route path="/about" element={<About />} />
             <Route path="/experience" element={<Experience />} />
             <Route path="/feature-project" element={<Project />} />
