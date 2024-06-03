@@ -115,12 +115,12 @@ export default function Contact() {
 
                 <Grid container spacing={2} justifyContent="center">
                     <Grid item>
-                        <IconButton color="primary" component="a" href="https://github.com" target="_blank">
+                        <IconButton color="primary" component="a" href="https://github.com/1804090-Newton" target="_blank">
                             <FontAwesomeIcon icon={faGithub} />
                         </IconButton>
                     </Grid>
                     <Grid item>
-                        <IconButton color="primary" component="a" href="https://linkedin.com" target="_blank">
+                        <IconButton color="primary" component="a" href="https://www.linkedin.com/in/newton-1b622b207/" target="_blank">
                             <FontAwesomeIcon icon={faLinkedin} />
                         </IconButton>
                     </Grid>

@@ -5,6 +5,7 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import log from '../assets/icon/Nicon.jpg';
 import { useTheme } from '@mui/material/styles';
+import resume from '../assets/icon/NEWTON-CV.pdf';
 
 const Header = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -19,7 +20,7 @@ const Header = () => {
     <>
       <AppBar position="static">
         <Toolbar>
-        <Link to="/portfolio">
+          <Link to="/portfolio">
             <Avatar src={log} alt="Logo" sx={{ width: 60, height: 60, marginRight: 'auto', backgroundColor: 'transparent', border: '2px solid #fff' }} />
           </Link>
           <Typography variant="h6" style={{ flexGrow: 1 }}></Typography>
@@ -28,7 +29,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faBars} />
             </IconButton>
           ) : (
-            <Box sx={{ display: 'flex',justifyContent: 'center', flexGrow: 4}}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 4 }}>
               <Button color="inherit" component={Link} to="/about">About</Button>
               <Button color="inherit" component={Link} to="/experience">Experience</Button>
               <Button color="inherit" component={Link} to="/feature-project">Project</Button>
@@ -39,13 +40,14 @@ const Header = () => {
 
           {!isMobile && (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Button variant="contained" color="primary" component={Link} to="/resume" sx={{ ml: 1 }}>Resume</Button>
-              <Button variant="contained" color="secondary" component={Link} to="/hire-me" sx={{ ml: 1 }}>Hire Me</Button>
+              <Button href={resume} variant="contained" color="primary" sx={{ ml: 1 }}>Resume</Button>
+              <Button  href='https://www.linkedin.com/in/newton-1b622b207/'
+              variant="contained" color="secondary"  sx={{ ml: 1 }}>Hire Me</Button>
             </Box>
           )}
         </Toolbar>
       </AppBar>
-      
+
       <Drawer anchor="right" open={showNavbar} onClose={toggleNavbar}>
         <div style={{ width: '250px' }}>
           <IconButton onClick={toggleNavbar}>
@@ -69,8 +71,9 @@ const Header = () => {
             </ListItem>
           </List>
           <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
-            <Button variant="contained" color="primary" component={Link} to="/resume" onClick={toggleNavbar}>Resume</Button>
-            <Button variant="contained" color="secondary" component={Link} to="/hire-me" onClick={toggleNavbar}>Hire Me</Button>
+            <Button href={resume} variant="contained" color="primary" onClick={toggleNavbar}>Resume</Button>
+            <Button  href='https://www.linkedin.com/in/newton-1b622b207/' variant="contained" color="secondary"  onClick={toggleNavbar}>Hire Me</Button>
+            
           </div>
         </div>
       </Drawer>

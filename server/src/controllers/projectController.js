@@ -1,5 +1,5 @@
 
-const { createProject, getAllProjects, getProjectById, deleteProject } = require('../models/ProjectModel');
+const { createProject, getAllProjects, getProjectById, deleteProject,updateProject } = require('../models/ProjectModel');
 
 async function handleCreateProject(ctx) {
   const project = ctx.request.body;
@@ -44,10 +44,21 @@ async function handleDeleteProject(ctx) {
     ctx.response.internalError(error.message);
   }
 }
+async function handleUpdateProject(ctx) {
+  const { userId,projectId } = ctx.params;
+  const project = ctx.request.body;
+  try {
+    await updateProject(userId,projectId,project);
+    ctx.response.ok('Project updated successfully');
+  } catch (error) {
+    ctx.response.internalError(error.message);
+  }
+}
 
 module.exports = {
   handleCreateProject,
   handleGetAllProjects,
   handleGetProjectById,
   handleDeleteProject,
+  handleUpdateProject
 };
