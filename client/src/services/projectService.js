@@ -1,15 +1,45 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000'; 
+const API_URL = 'http://localhost:3000';
 
 const getAllProjects = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/projects`);
-    return response.data.data; 
-  } catch (error) {
-    console.error('Error fetching experiences', error);
-    throw error;
-  }
+  return axios.get(`${API_URL}/projects`)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
 };
 
-export { getAllProjects };
+const getProjectById = async (userId, projectId) => {
+  return axios.get(`${API_URL}/project/${userId}/${projectId}`)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+const createProject = async (project) => {
+  return axios.post(`${API_URL}/project`, project)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+const updateProject = async (userId, projectId, project) => {
+  return axios.put(`${API_URL}/project/${userId}/${projectId}`, project)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+const deleteProject = async (userId, projectId) => {
+  return axios.delete(`${API_URL}/project/${userId}/${projectId}`)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export { getAllProjects, getProjectById, createProject, updateProject, deleteProject };
