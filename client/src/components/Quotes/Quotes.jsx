@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './Quotes.css';
+import { Container, Typography, CircularProgress, Button, Box, Divider } from '@mui/material';
 import useFetch from '../Customhook/useFetch';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const Quotes = () => {
     const { data: quotes, loading } = useFetch('https://type.fit/api/quotes');
@@ -17,25 +18,29 @@ const Quotes = () => {
     };
 
     return (
-        <div id='Quote' className='container'>
-            <div className="quote-title">Quotes:</div>
+        <Container id='Quote' sx={{ textAlign: 'center', padding: '2rem' }}>
+            <Typography variant="h4" gutterBottom marginTop={10}>
+                Quotes:
+            </Typography>
             {loading ? (
-                <div>Loading...</div>
+                <CircularProgress />
             ) : (
                 <>
-                    <div className='quote'>{quote.text}</div>
-                    <div>
-                        <div className='line'></div>
-                        <div className="bottom">
-                            <div className="author">{quote.author.split(',')[0]}</div>
-                            <div className="icons">
-                               <button className="generate"> <i className="fa fa-refresh" onClick={random}></i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <Typography variant="h5" sx={{ marginBottom: '1rem' }}>
+                        {quote.text}
+                    </Typography>
+                    <Divider sx={{ marginBottom: '1rem' }} />
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography variant="subtitle1">
+                            {quote.author.split(',')[0]}
+                        </Typography>
+                        <Button variant="contained" color="primary" onClick={random} startIcon={<RefreshIcon />}>
+                            Generate
+                        </Button>
+                    </Box>
                 </>
             )}
-        </div>
+        </Container>
     );
 };
 

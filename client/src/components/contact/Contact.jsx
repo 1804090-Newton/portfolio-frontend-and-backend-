@@ -43,8 +43,8 @@ export default function Contact() {
 
     return (
         <Container id="contact" className="contact-style" maxWidth="md">
-            <Box textAlign="center">
-                <Typography variant="h2" component="h1" gutterBottom>
+            <Box textAlign="center" marginTop={10}>
+                <Typography variant="h2" component="h1" gutterBottom >
                     Contact
                 </Typography>
                 <Typography variant="body1" paragraph>
