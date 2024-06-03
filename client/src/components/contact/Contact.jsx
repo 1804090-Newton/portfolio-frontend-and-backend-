@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { Container, TextField, Button, Typography, Box, Grid, IconButton } from '@mui/material';
+import { submitContactForm } from '../../services/contactService';
 
 export default function Contact() {
     const [showForm, setShowForm] = useState(false);
@@ -28,14 +28,7 @@ export default function Contact() {
     }
 
     async function handleSubmit() {
-        try {
-            const response = await axios.post('http://localhost:3000/contact', formData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log('Form submitted successfully:', response.data);
-            setShowForm(false);
+        return await submitContactForm(formData).then(() => {
             setFormData({
                 firstName: '',
                 lastName: '',
@@ -43,9 +36,9 @@ export default function Contact() {
                 email: '',
                 message: ''
             });
-        } catch (error) {
-            console.error('Error submitting form:', error.response ? error.response.data : error.message);
-        }
+            setShowForm(false);
+        })
+        .catch(err => console.error(err));
     }
 
     return (
