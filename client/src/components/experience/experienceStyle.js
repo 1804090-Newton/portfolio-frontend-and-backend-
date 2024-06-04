@@ -11,10 +11,12 @@ const GradientCard = styled(Card)(({ theme }) => ({
   flexDirection: "column",
   flexWrap: "wrap",
   justifyContent: "space-between",
+     
   alignItems: "center",
   height: "90%",
   padding: theme.spacing(2),
     borderRadius: "10px",
+    
     
 
 }));
@@ -30,7 +32,7 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
 const AddButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   right: 0,
-  top: 10,
+  top: 40,
   border: `2px solid ${theme.palette.primary.main}`,
   borderRadius: '50%',
   padding: theme.spacing(2),

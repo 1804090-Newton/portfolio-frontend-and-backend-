@@ -100,16 +100,15 @@ const ExperienceSection = () => {
   const handleSaveExperience = async () => {
     try {
       if (isEditMode) {
-        const updatedExperience = await updateExperience(userId, currentExperience.experienceId, currentExperience);
-        setExperiences(prevExperiences =>
-          prevExperiences.map(exp => (exp.experienceId === updatedExperience.experienceId ? updatedExperience : exp))
-        );
+        await updateExperience(userId, currentExperience.experienceId, currentExperience);
+
       } else {
         currentExperience.userId = userId;
         currentExperience.experienceId = Date.now().toString();
-        const newExperience = await addExperience(currentExperience);
-        setExperiences(prevExperiences => [...prevExperiences, newExperience]);
+        await addExperience(currentExperience);
       }
+      const updatedExperiences = await getAllExperiences();
+      setExperiences(updatedExperiences);
       handleCloseDialog();
     } catch (error) {
       console.error('Failed to save experience', error);
@@ -128,8 +127,8 @@ const ExperienceSection = () => {
   return (
     <Container id="experience" maxWidth="md">
       <HeaderContainer>
-        <Typography variant="h2" gutterBottom>
-          Experience
+        <Typography variant="h3" gutterBottom marginTop={5}> 
+          EXPERIENCE
         </Typography>
         <AddButton
           color="primary"
@@ -140,7 +139,8 @@ const ExperienceSection = () => {
       </HeaderContainer>
       <Grid container spacing={2}>
         {experiences.map((experience, index) => (
-          <Grid item key={experience.experienceId} xs={12} sm={6} md={4} lg={3}>
+          <Grid item key={experience.experienceId} xs={12} sm={6} md={4} lg={4}>
+
             <GradientCard elevation={3}>
               <CardContent gutterBottom align="center">
                 <Typography variant="h5" gutterBottom fontWeight="bold">

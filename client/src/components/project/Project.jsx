@@ -60,15 +60,14 @@ const ProjectSection = () => {
     try {
       if (isEditing) {
         await updateProject(currentProject.userId, currentProject.projectId, currentProject);
-        const updatedProjects = await getAllProjects();
-        setProjects(updatedProjects);
+        
       } else {
         currentProject.userId = userId;
         currentProject.projectId = Date.now().toString();
         await createProject(currentProject);
-        const updatedProjects = await getAllProjects();
-        setProjects(updatedProjects);
       }
+      const updatedProjects = await getAllProjects();
+        setProjects(updatedProjects);
       setOpen(false);
     } catch (error) {
       console.error('Error saving project:', error);
@@ -77,7 +76,7 @@ const ProjectSection = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4" component="h1" className={classes.title}>
+      <Typography variant="h3" component="h1" className={classes.title}>
         PROJECTS
       </Typography>
       <div className={classes.buttonContainer}>
