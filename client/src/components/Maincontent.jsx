@@ -5,7 +5,7 @@ import { Typography, Button, Box } from '@mui/material';
 const Bread = () => {
 
   const toggleAbout = () => {
-    // Add your logic here if needed
+    
   };
 
   return (
